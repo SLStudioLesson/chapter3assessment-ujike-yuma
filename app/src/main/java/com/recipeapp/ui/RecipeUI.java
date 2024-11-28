@@ -40,6 +40,7 @@ public class RecipeUI {
                         displayRecipes();
                         break;
                     case "2":
+                        addNewRecipe();
                         break;
                     case "3":
                         break;
@@ -93,26 +94,28 @@ public class RecipeUI {
             System.out.println("\nAdding a new recipe.");
             // レシピ名の入力
             System.out.println("Enter recipe name: ");
-            String input1 = reader.readLine();
+            String recipeName = reader.readLine();
 
             // 材料名の入力
+            ArrayList<Ingredient> ingredients = new ArrayList<>();
             System.out.println("Enter ingredients (type 'done' when finished):");
             boolean flag = true;
             while (flag) {
-                String input2 = reader.readLine();
-                switch (input2) {
+                String ingredientName = reader.readLine();
+                switch (ingredientName) {
                     case "done":
                         flag = false;
                         break;
                 
                     default:
-                        Ingredient ingredient = new Ingredient(input2);
+                        Ingredient ingredient = new Ingredient(ingredientName);
+                        ingredients.add(ingredient);
                         break;
                 }
             }
-            System.out.println();
-
-            Recipe recipe = new Recipe(input1, null);
+            // 新しいrecipeインスタンス生成
+            Recipe recipe = new Recipe(recipeName, ingredients);
+            dataHandler.writeData(recipe);
         } catch (IOException e) {
             System.out.println("Failed to add new recipe: " + e.getMessage());
         }

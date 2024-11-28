@@ -3,6 +3,9 @@ package com.recipeapp.datahandler;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 import java.util.ArrayList;
 
 import com.recipeapp.model.Ingredient;
@@ -49,6 +52,16 @@ public class CSVDataHandler implements DataHandler {
     @Override
     public void writeData(Recipe recipe) throws IOException {
         //引数recipeを書き込む処理
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            ArrayList<Ingredient> ingredients = recipe.getIngredients();
+            // ingredientsをString.join()で", "連結させる
+            String[] strs = new String[ingredients.size()];
+            for (int i = 0; i < ingredients.size(); i++) {
+                strs[i] = ingredients.get(i).getName();
+            }
+            String text = "\n" + recipe.getName() + "," + String.join(", ", strs);
+            writer.write(text);
+        }
     };
 
     @Override
