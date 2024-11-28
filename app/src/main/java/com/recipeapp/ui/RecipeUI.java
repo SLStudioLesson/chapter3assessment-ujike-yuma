@@ -116,6 +116,8 @@ public class RecipeUI {
             // 新しいrecipeインスタンス生成
             Recipe recipe = new Recipe(recipeName, ingredients);
             dataHandler.writeData(recipe);
+            
+            System.out.println("Recipe added successfully.");
         } catch (IOException e) {
             System.out.println("Failed to add new recipe: " + e.getMessage());
         }
