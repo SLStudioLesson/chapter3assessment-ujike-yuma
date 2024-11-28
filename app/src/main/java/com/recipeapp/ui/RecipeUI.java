@@ -110,6 +110,7 @@ public class RecipeUI {
                         break;
                 }
             }
+            System.out.println();
 
             Recipe recipe = new Recipe(input1, null);
         } catch (IOException e) {
